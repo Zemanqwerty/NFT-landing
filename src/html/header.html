@@ -1,0 +1,44 @@
+<header class="header">
+	<div class="container">
+		<div class="header__main">
+			<img src="img/logo.png" alt="logo">
+
+			<div class="header__inner">
+				<div class="header__links ">
+					<a href="#" class="header__link">Explore</a>
+					<a href="#" class="header__link">Creators</a>
+					<a href="#" class="header__link">Community</a>
+				</div>
+
+				<button id="connect-wallet__btn" class="header__btn">Connect Wallet</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.getElementById('connect-wallet__btn').addEventListener('click', event => {
+			var account;
+			var button = event.target;
+			if (!window.ethereum) {
+				button.textContent = 'Install the MetaMask';
+			} else {
+				ethereum.request({method: 'eth_requestAccounts'}).then(accounts => {
+					account = accounts[0];
+					let up_wallet_address = "";
+
+					for (var wallet_i in account) {
+						up_wallet_address += account[wallet_i]
+						
+						if (wallet_i == 4) {
+							break;
+						};
+					};
+
+					up_wallet_address += "..." + account[account.length - 4] + account[account.length - 3] + account[account.length - 2] + account[account.length - 1]
+					console.log(account);
+					button.textContent = up_wallet_address;
+				})
+			}
+		})
+	</script>
+</header>
